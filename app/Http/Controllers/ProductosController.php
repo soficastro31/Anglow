@@ -45,7 +45,8 @@ class ProductosController extends Controller
             $datos['imagen'] = $rutaImagen;
         }
 
-        @class_exists('Productos') && Productos::create($datos);
+        // LÍNEA CORREGIDA: Guarda el producto directamente sin bloqueos fijos
+        Productos::create($datos);
 
         return redirect('/productos/gestion')->with('success', 'Producto creado con éxito');
     }
@@ -208,7 +209,7 @@ class ProductosController extends Controller
             'direccion'           => $request->direccion,
             'notas_envio'         => $request->notas_envio,
             'total'               => $total,
-            'estado_pago'         => 'pendiente', 
+            'estado_pago'         => 'pendiente',
         ]);
 
         session()->put('ultimo_pedido_id', $pedido->id);
@@ -231,7 +232,7 @@ class ProductosController extends Controller
     {
         // Buscamos el pedido correspondiente al ID de la URL
         $pedido = Pedido::findOrFail($id);
-        
+
         // Actualizamos el estado del pedido en la base de datos
         $pedido->update(['estado_pago' => 'aprobado']);
 

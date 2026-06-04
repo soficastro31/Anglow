@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-<html>
+<html lang="es">
 <head>
-    <title>Registro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Anglow</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
 
-<h2>Crear cuenta</h2>
+<div class="form-container">
 
-<form method="POST" action="/register">
-    @csrf
+    <div class="form-card">
 
-    <input type="text" name="name" placeholder="Nombre"><br><br>
+        <h1>Crear cuenta</h1>
 
-    <input type="email" name="email" placeholder="Email"><br><br>
+        <form method="POST" action="/register">
+            @csrf
 
-    <input type="password" name="password" placeholder="Contraseña"><br><br>
+            <input type="text" name="name" placeholder="Nombre" required>
 
-    <button type="submit">Registrarse</button>
-</form>
+            <input type="email" name="email" placeholder="Email" required>
 
-<a href="/login">Ya tengo cuenta</a>
+            <input type="password" name="password" placeholder="Contraseña" required>
+
+            <button type="submit">Registrarse</button>
+        </form>
+
+        <p style="text-align: center; margin-top: 20px;">
+            <a href="/login" style="color: #4f8cff; font-weight: 500; text-decoration: none;">Ya tengo cuenta</a>
+        </p>
+
+    </div>
+
+</div>
 
 </body>
 </html>

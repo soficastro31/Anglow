@@ -2,42 +2,40 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>Agregar Producto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Producto - Anglow</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
 
-    <h1>Agregar Producto</h1>
+<div class="form-container">
+    <div class="form-card">
+        <h1>Nuevo Producto</h1>
 
-    <form action="/productos" method="POST">
+        <form method="POST" action="/productos" enctype="multipart/form-data">
+            @csrf
 
-        @csrf
+            <input type="text" name="nombre" placeholder="Nombre del Producto" required>
 
-        <label>Nombre</label>
-        <br>
-        <input type="text" name="nombre">
-        <br><br>
+            <textarea name="descripcion" placeholder="Descripción del producto..." required></textarea>
 
-        <label>Descripción</label>
-        <br>
-        <textarea name="descripcion"></textarea>
-        <br><br>
+            <input type="number" step="0.01" name="precio" placeholder="Precio (Ej: 6000.00)" required>
 
-        <label>Precio</label>
-        <br>
-        <input type="number" name="precio">
-        <br><br>
+            <input type="number" name="stock" placeholder="Cantidad en Stock (Ej: 10)" required>
 
-        <label>Stock</label>
-        <br>
-        <input type="number" name="stock">
-        <br><br>
+            <label style="display:block; margin-bottom:8px; color:#3d4a64; font-size:14px; font-weight:500;">
+                Imagen del Producto:
+            </label>
+            <input type="file" name="imagen" accept="image/*" required>
 
-        <button type="submit">
-            Guardar Producto
-        </button>
-
-    </form>
+            <button type="submit">Guardar Producto</button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 15px;">
+            <a href="/admin" style="color: #4f8cff; text-decoration: none;">Volver al Panel</a>
+        </p>
+    </div>
+</div>
 
 </body>
 </html>

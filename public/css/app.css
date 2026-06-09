@@ -31,9 +31,9 @@ img {
     padding: 30px 0;
 }
 
-header, 
-section.hero, 
-section.categorias, 
+header,
+section.hero,
+section.categorias,
 section.beneficios {
     width: 90%;
     max-width: 1200px;
@@ -49,7 +49,7 @@ nav {
     align-items: center;
     padding: 15px 30px;
     background: white;
-    box-shadow: 0 2px 12px rgba(79,140,255,.15);
+    box-shadow: 0 2px 12px rgba(79, 140, 255, .15);
 }
 
 nav strong {
@@ -96,12 +96,12 @@ nav a:hover {
 }
 
 .navbar {
-    background: linear-gradient(135deg,#4f8cff,#6daee6);
+    background: linear-gradient(135deg, #4f8cff, #6daee6);
     padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 20px rgba(79,140,255,.25);
+    box-shadow: 0 4px 20px rgba(79, 140, 255, .25);
 }
 
 .logo {
@@ -178,7 +178,7 @@ nav a:hover {
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 40px;
-    box-shadow: 0 10px 30px rgba(79,140,255,.15);
+    box-shadow: 0 10px 30px rgba(79, 140, 255, .15);
 }
 
 .hero-text {
@@ -220,13 +220,15 @@ nav a:hover {
     height: 320px;
     object-fit: cover;
     border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .1);
 }
 
 /* =================================
    TÍTULOS
 ================================= */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     margin-bottom: 15px;
 }
 
@@ -263,7 +265,7 @@ h1 {
     background: white;
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(79,140,255,.08);
+    box-shadow: 0 10px 30px rgba(79, 140, 255, .08);
     transition: .3s ease;
     display: flex;
     flex-direction: column;
@@ -273,7 +275,7 @@ h1 {
 .card:hover,
 .card-categoria:hover {
     transform: translateY(-6px);
-    box-shadow: 0 15px 35px rgba(79,140,255,.15);
+    box-shadow: 0 15px 35px rgba(79, 140, 255, .15);
 }
 
 .producto-card img,
@@ -293,7 +295,7 @@ h1 {
     flex-grow: 1;
 }
 
-.info h3, 
+.info h3,
 .card-info h3 {
     font-size: 20px;
     margin-bottom: 10px;
@@ -350,6 +352,7 @@ button:hover {
     background: #4f8cff !important;
     color: white !important;
 }
+
 .primary:hover {
     background: #3d79ec !important;
 }
@@ -357,6 +360,7 @@ button:hover {
 .secondary {
     background: #6daee6;
 }
+
 .secondary:hover {
     background: #5296cf;
 }
@@ -364,6 +368,7 @@ button:hover {
 .editar {
     background: #3b82f6;
 }
+
 .editar:hover {
     background: #2563eb;
 }
@@ -371,6 +376,7 @@ button:hover {
 .eliminar {
     background: #ef4444;
 }
+
 .eliminar:hover {
     background: #dc2626;
 }
@@ -436,27 +442,34 @@ button:hover {
    LOGIN / REGISTRO / FORMULARIOS ADMIN
 ================================= */
 .form-container {
-    min-height: 100vh;          /* Forzamos a que use todo el alto de pantalla */
-    width: 100vw;               /* Forzamos todo el ancho de pantalla */
-    display: flex !important;   /* Forzamos comportamiento Flexbox */
-    justify-content: center;    /* Centrado horizontal absoluto */
-    align-items: center;        /* Centrado vertical absoluto */
+    min-height: 100vh;
+    /* Forzamos a que use todo el alto de pantalla */
+    width: 100vw;
+    /* Forzamos todo el ancho de pantalla */
+    display: flex !important;
+    /* Forzamos comportamiento Flexbox */
+    justify-content: center;
+    /* Centrado horizontal absoluto */
+    align-items: center;
+    /* Centrado vertical absoluto */
     padding: 40px 20px;
-    background-color: #f4f6fb;  /* Color de fondo exterior */
+    background-color: #f4f6fb;
+    /* Color de fondo exterior */
     position: relative;
 }
 
 .form-card {
-    background: #ffffff !important; /* Forzamos color de fondo de la card */
+    background: #ffffff !important;
+    /* Forzamos color de fondo de la card */
     width: 100%;
     max-width: 450px;
     padding: 40px;
     border-radius: 20px;
-    
+
     /* Efecto de tarjeta con sombra detrás */
-    box-shadow: 0 15px 35px rgba(79, 140, 255, 0.15), 
-                0 5px 15px rgba(0, 0, 0, 0.05) !important;
-    
+    box-shadow: 0 15px 35px rgba(79, 140, 255, 0.15),
+        0 5px 15px rgba(0, 0, 0, 0.05) !important;
+
     transition: transform 0.3s ease;
 }
 
@@ -532,7 +545,7 @@ table {
     background: white;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(79,140,255,.1);
+    box-shadow: 0 5px 20px rgba(79, 140, 255, .1);
     margin: 20px 0;
 }
 
@@ -564,6 +577,7 @@ footer,
    RESPONSIVE DESIGN (Móviles)
 ================================= */
 @media(max-width:968px) {
+
     header,
     .navbar {
         flex-direction: column;
@@ -578,12 +592,12 @@ footer,
         justify-content: center;
         gap: 15px;
     }
-    
-    nav a, 
+
+    nav a,
     .buscar {
         margin-left: 0;
     }
-    
+
     .buscar {
         width: 100%;
     }
@@ -593,7 +607,7 @@ footer,
         padding: 40px 20px;
         text-align: center;
     }
-    
+
     .hero-text {
         text-align: center;
     }
@@ -613,5 +627,402 @@ footer,
     .grid-productos,
     .grid-categorias {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   ESTILOS GENERALES DE LA FACTURA (ANGLOW)
+   ========================================================================== */
+body.invoice-body {
+    background-color: #f3f4f6;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.invoice-box {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.status-badge {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 6px 12px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.info-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.info-col {
+    flex: 1;
+}
+
+.info-col h3 {
+    font-size: 16px;
+    color: #1f2937;
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+
+.info-col p {
+    color: #4b5563;
+    margin: 4px 0;
+    line-height: 1.4;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.invoice-table th {
+    background: #f9fafb;
+    text-align: left;
+    padding: 12px;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.invoice-table td {
+    padding: 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #f3f4f6;
+    color: #4b5563;
+}
+
+.invoice-total {
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1f2937;
+    padding-top: 15px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.actions-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.btn-action {
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* ==========================================================================
+   REGLAS DE IMPRESIÓN EXTERNAS (Oculta botones automáticamente)
+   ========================================================================== */
+@media print {
+    body.invoice-body {
+        background: #ffffff;
+    }
+
+    .invoice-box {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .actions-container {
+        display: none !important;
+    }
+}
+
+/* ===================================================
+   VISTA FACTURA (ESTILOS SEPARADOS)
+=================================================== */
+.factura-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 40px auto 0 auto;
+}
+
+.factura-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.factura-emoji {
+    font-size: 50px;
+}
+
+.factura-titulo {
+    font-size: 26px;
+    color: #1f2937;
+    margin-top: 10px;
+}
+
+.factura-subtitulo {
+    color: #6b7280;
+    margin-top: 5px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.status-aprobado {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-pendiente {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.resumen-seccion-titulo {
+    font-size: 16px;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.detalle-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed #e5e7eb;
+    font-size: 15px;
+}
+
+.detalle-row:last-child {
+    border-bottom: none;
+}
+
+.detalle-label {
+    color: #6b7280;
+}
+
+.detalle-valor {
+    color: #1f2937;
+}
+
+.detalle-valor-principal {
+    color: #1f2937;
+}
+
+.destino-texto {
+    text-align: right;
+}
+
+.notas-texto {
+    font-style: italic;
+    max-width: 70%;
+    text-align: right;
+}
+
+.total-factura-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.total-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1f2937;
+}
+
+.total-monto {
+    font-size: 24px;
+    font-weight: 800;
+    color: #4f8cff;
+}
+
+.factura-footer-acciones {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.btn-seguir-comprando {
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+    background: #4f8cff;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    box-sizing: border-box;
+}
+
+.btn-seguir-comprando:hover {
+    background: #3b76e0;
+}
+
+/* ================= DISPOSICIÓN EN DOS COLUMNAS (LAYOUT) ================= */
+.checkout-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-top: 25px;
+}
+
+/* Columna del Formulario (Ocupa el 60% del ancho) */
+.col-formulario {
+    flex: 1.6;
+    min-width: 320px;
+}
+
+/* Columna del Resumen (Ocupa el 40% del ancho) */
+.col-resumen {
+    flex: 1;
+    min-width: 300px;
+    position: sticky;
+    top: 20px;
+    /* Se queda fijo si la pantalla es larga */
+}
+
+/* ================= DISEÑO DEL RESUMEN DEL PEDIDO ================= */
+.resumen-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eef2f5;
+}
+
+.resumen-card-titulo {
+    font-size: 18px;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Contenedor de la lista de productos */
+.resumen-items-container {
+    max-height: 280px;
+    overflow-y: auto;
+    /* Por si el cliente lleva demasiadas cosas */
+    margin-bottom: 20px;
+    padding-right: 5px;
+}
+
+/* Cada fila de producto */
+.item-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+.item-resumen:last-child {
+    border-bottom: none;
+}
+
+/* Cantidad (ej: 3x) */
+.item-cantidad-badge {
+    background: #eff6ff;
+    color: #3b82f6;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+/* Nombre del producto */
+.item-nombre-texto {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+}
+
+/* Precio al extremo derecho */
+.item-precio-texto {
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* ================= CONTENEDOR DEL TOTAL ================= */
+.total-checkout-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #f1f5f9;
+}
+
+.total-checkout-label {
+    font-size: 16px;
+    color: #1e293b;
+    font-weight: 700;
+}
+
+.total-checkout-monto {
+    font-size: 22px;
+    color: #3b82f6;
+    /* Azul moderno a juego con tu botón principal */
+    font-weight: 800;
+}
+
+/* Ajustes responsivos para celulares */
+@media (max-width: 768px) {
+    .checkout-layout {
+        flex-direction: column;
+    }
+
+    .col-formulario,
+    .col-resumen {
+        width: 100%;
+        flex: none;
     }
 }

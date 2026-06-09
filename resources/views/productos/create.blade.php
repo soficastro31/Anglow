@@ -17,6 +17,19 @@
 
             <input type="text" name="nombre" placeholder="Nombre del Producto" required>
 
+            <div style="margin-bottom: 15px; text-align: left;">
+                <label for="categoria_id" style="display:block; margin-bottom:8px; color:#3d4a64; font-size:14px; font-weight:500;">
+                    Categoría de la Miscelánea:
+                </label>
+                <select name="categoria_id" id="categoria_id" required 
+                        style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; color: #333; background-color: #fff;">
+                    <option value="" disabled selected>-- Elige una categoría --</option>
+                    @foreach($categorias as $cat)
+                        <option value="{{ $cat->id }}">{{ $cat->nombre }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <textarea name="descripcion" placeholder="Descripción del producto..." required></textarea>
 
             <input type="number" step="0.01" name="precio" placeholder="Precio (Ej: 6000.00)" required>

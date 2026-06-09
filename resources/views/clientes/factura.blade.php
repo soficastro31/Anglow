@@ -5,83 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmación de Compra #{{ $pedido->id }} - Anglow</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <style>
-        .invoice-box {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 30px;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            background: #ffffff;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        .invoice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #f3f4f6;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-        }
-        .status-badge {
-            background: #d1fae5;
-            color: #065f46;
-            padding: 6px 12px;
-            border-radius: 9999px;
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .info-grid {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-        .info-col {
-            flex: 1;
-        }
-        .info-col h3 {
-            font-size: 16px;
-            color: #1f2937;
-            margin-bottom: 8px;
-        }
-        .info-col p {
-            color: #4b5563;
-            margin: 4px 0;
-            line-height: 1.4;
-        }
-        .invoice-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-        .invoice-table th {
-            background: #f9fafb;
-            text-align: left;
-            padding: 12px;
-            font-size: 14px;
-            color: #374151;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .invoice-table td {
-            padding: 12px;
-            font-size: 14px;
-            border-bottom: 1px solid #f3f4f6;
-            color: #4b5563;
-        }
-        .invoice-total {
-            text-align: right;
-            font-size: 18px;
-            font-weight: bold;
-            color: #1f2937;
-            padding-top: 15px;
-            border-top: 2px solid #e5e7eb;
-        }
-    </style>
 </head>
-<body>
+<body class="invoice-body">
 
 <div class="invoice-box">
     <div class="invoice-header">
@@ -132,8 +57,12 @@
         Total Pagado: <span style="color: #4f8cff; font-size: 22px; font-weight: 800;">${{ number_format($pedido->total, 2) }}</span>
     </div>
 
-    <div style="text-align: center; margin-top: 40px;">
-        <a href="/tienda" class="btn" style="background: #4f8cff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+    <div class="actions-container">
+        <button onclick="window.print();" class="btn-action" style="background: #4b5563; color: white;">
+            🖨️ Imprimir Factura
+        </button>
+        
+        <a href="/tienda" class="btn-action" style="background: #4f8cff; color: white;">
             Volver a la Tienda
         </a>
     </div>

@@ -47,7 +47,10 @@
                 <div class="info">
                     <h3>{{ $producto->nombre }}</h3>
                     <p class="desc">{{ $producto->descripcion }}</p>
-                    <p class="precio">${{ $producto->precio }}</p>
+                    <p class="precio">${{ number_format($producto->precio, 2) }}</p>
+                    
+                    {{-- Acceso a la relación categoria definida en el Controller --}}
+                    <p style="font-size: 13px; color: #6b7280;">Cat: {{ $producto->categoria->nombre ?? 'N/A' }}</p>
                     <p style="font-size: 13px; color: #6b7280; margin-bottom: 15px;">Stock: {{ $producto->stock }} u.</p>
 
                     <div class="acciones" style="display: flex; gap: 10px; margin-top: auto;">
@@ -56,11 +59,11 @@
                         </a>
 
                         <form action="/productos/{{ $producto->id }}" method="POST"
-                              onsubmit="return confirm('¿Seguro que quieres eliminar este producto?')"
+                              onsubmit="return confirm('¿Seguro que quieres inhabilitar este producto?')"
                               style="flex: 1; padding: 0; background: none; box-shadow: none;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn eliminar" style="width: 100%; background: #e63946; color: white; padding: 8px; border-radius: 6px; margin: 0;">
+                            <button type="submit" class="btn eliminar" style="width: 100%; background: #e63946; color: white; padding: 8px; border-radius: 6px; margin: 0; border: none; cursor: pointer;">
                                 Inhabilitar
                             </button>
                         </form>

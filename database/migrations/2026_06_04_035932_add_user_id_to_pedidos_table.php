@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pedidos', function (Blueprint $table) {
-            // Crea la columna user_id justo después de la columna id
-            $table->foreignId('user_id')->after('id')->constrained()->onDelete('cascade');
-        });
+        // Solo intentamos crear la columna si NO existe.
+        if (!Schema::hasColumn('pedidos', 'user_id')) {
+            Schema::table('pedidos', function (Blueprint $table) {
+                $table->unsignedBigInteger('user_id')->after('id');
+            });
+        }
     }
 
     /**
@@ -23,8 +25,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pedidos', function (Blueprint $table) {
-            // Elimina la relación y la columna si hacemos rollback
+            // 1. Eliminamos la restricción de la llave foránea primero
             $table->dropForeign(['user_id']);
+
+            // 2. Ahora sí podemos borrar la columna de forma segura
             $table->dropColumn('user_id');
         });
     }

@@ -32,6 +32,16 @@
             min-width: 20px;
             text-align: center;
         }
+        /* Alerta para errores de stock al incrementar */
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c14;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -39,6 +49,12 @@
 <div class="container" style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
 
     <h1 style="color: #1f2937; margin-bottom: 25px;">Tu carrito</h1>
+
+    @if(session('error'))
+        <div class="alert-error">
+            ⚠️ {{ session('error') }}
+        </div>
+    @endif
 
     @php
         $carrito = session('carrito', []);
@@ -88,9 +104,13 @@
         <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center;">
             <h2 style="margin: 0; color: #1f2937; font-size: 22px;">Total General: <span style="color: #4f8cff;">${{ number_format($total, 2) }}</span></h2>
             
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <a href="/tienda" style="text-decoration: none;">
+                    <button style="background: #6b7280; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px;">Seguir Comprando</button>
+                </a>
+
                 <a href="/carrito/vaciar" style="text-decoration: none;">
-                    <button style="background: #6b7280; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;">Vaciar carrito</button>
+                    <button style="background: #9ca3af; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px;">Vaciar</button>
                 </a>
 
                 <a href="/checkout" style="text-decoration: none;">

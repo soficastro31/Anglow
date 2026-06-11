@@ -36,6 +36,60 @@
         <p style="color: green; font-weight: bold; margin-bottom: 15px;">{{ session('success') }}</p>
     @endif
 
+    <form action="{{ url('/productos/gestion') }}" method="GET" style="background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 25px; display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
+        
+        <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 6px;">
+            <label style="font-weight: bold; font-size: 13px; color: #4b5563;">
+                <i class="fa-solid fa-magnifying-glass"></i> Nombre del Producto:
+            </label>
+            <input type="text" name="buscar" value="{{ request('buscar') }}" placeholder="Buscar por nombre..." style="padding: 9px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 14px; width: 100%; box-sizing: border-box;">
+        </div>
+
+        <div style="flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 6px;">
+            <label style="font-weight: bold; font-size: 13px; color: #4b5563;">
+                <i class="fa-solid fa-folder"></i> Categoría:
+            </label>
+            <select name="categoria_id" style="padding: 9px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 14px; background: #fff; width: 100%; height: 38px; cursor: pointer;">
+                <option value="">-- Todas --</option>
+                @foreach($categorias as $cat)
+                    <option value="{{ $cat->id }}" {{ request('categoria_id') == $cat->id ? 'selected' : '' }}>
+                        {{ $cat->nombre }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div style="flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 6px;">
+            <label style="font-weight: bold; font-size: 13px; color: #4b5563;">
+                <i class="fa-solid fa-boxes-stacked"></i> Alerta de Stock:
+            </label>
+            <select name="estado_stock" style="padding: 9px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 14px; background: #fff; width: 100%; height: 38px; cursor: pointer;">
+                <option value="">-- Todos los estados --</option>
+                <option value="disponible" {{ request('estado_stock') == 'disponible' ? 'selected' : '' }}>🟢 Disponible (> 10 u.)</option>
+                <option value="bajo" {{ request('estado_stock') == 'bajo' ? 'selected' : '' }}>🟡 Stock Bajo (≤ 10 u.)</option>
+                <option value="agotado" {{ request('estado_stock') == 'agotado' ? 'selected' : '' }}>🔴 Agotado (0 u.)</option>
+            </select>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" style="background: #4f8cff; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; height: 38px;">
+                <i class="fa-solid fa-filter"></i> Filtrar
+            </button>
+            
+            @if(request('buscar') || request('categoria_id') || request('estado_stock'))
+                <a href="{{ url('/productos/gestion') }}" style="background: #e5e7eb; color: #374151; padding: 0 15px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; height: 38px; border: 1px solid #d1d5db;">
+                    Limpiar
+                </a>
+            @endif
+        </div>
+    </form>
+
+    @if($productos->isEmpty())
+        <div style="background: white; padding: 40px; border-radius: 8px; text-align: center; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+            <p style="color: #6b7280; font-size: 16px; margin: 0;">No se encontraron artículos que coincidan con los criterios de búsqueda aplicados.</p>
+        </div>
+    @endif
+
     <div class="grid-productos">
         @foreach($productos as $producto)
             <div class="producto-card">
@@ -49,9 +103,20 @@
                     <p class="desc">{{ $producto->descripcion }}</p>
                     <p class="precio">${{ number_format($producto->precio, 2) }}</p>
                     
-                    {{-- Acceso a la relación categoria definida en el Controller --}}
-                    <p style="font-size: 13px; color: #6b7280;">Cat: {{ $producto->categoria->nombre ?? 'N/A' }}</p>
-                    <p style="font-size: 13px; color: #6b7280; margin-bottom: 15px;">Stock: {{ $producto->stock }} u.</p>
+                    <p style="font-size: 13px; color: #6b7280; margin: 4px 0;">
+                        <i class="fa-solid fa-tag" style="width: 16px;"></i> Cat: {{ $producto->categoria->nombre ?? 'N/A' }}
+                    </p>
+
+                    <p style="font-size: 13px; color: #6b7280; margin-bottom: 15px;">
+                        <i class="fa-solid fa-boxes-stacked" style="width: 16px;"></i> Stock: 
+                        @if($producto->stock == 0)
+                            <span style="background: #f8d7da; color: #842029; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 12px;">Agotado (0 u.)</span>
+                        @elseif($producto->stock <= 10)
+                            <span style="background: #fff3cd; color: #664d03; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 12px;">Bajo Stock ({{ $producto->stock }} u.)</span>
+                        @else
+                            <span style="background: #d1e7dd; color: #0f5132; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 12px;">{{ $producto->stock }} u.</span>
+                        @endif
+                    </p>
 
                     <div class="acciones" style="display: flex; gap: 10px; margin-top: auto;">
                         <a href="/productos/edit/{{ $producto->id }}" class="btn editar" style="flex: 1; text-align: center; text-decoration: none; background: #ffb703; color: white; padding: 8px; border-radius: 6px; font-weight: 500;">

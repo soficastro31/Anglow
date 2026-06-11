@@ -102,7 +102,29 @@
         </div>
         <button type="submit"><i class="fa-solid fa-plus"></i> Registrar Compra</button>
     </form>
-
+<br>
+<div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb; margin-bottom: 20px;">
+    <form action="{{ url('/admin/compras') }}" method="GET" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end;">
+        <div style="flex: 2; min-width: 200px; display: flex; flex-direction: column; gap: 5px;">
+            <label style="font-weight: bold; font-size: 13px; color: #4b5563;">Proveedor / Factura:</label>
+            <input type="text" name="buscar" value="{{ request('buscar') }}" placeholder="Nombre proveedor o Nº recibo..." style="padding: 8px; border: 1px solid #cbd5e0; border-radius: 6px; height: 38px;">
+        </div>
+        <div style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 5px;">
+            <label style="font-weight: bold; font-size: 13px; color: #4b5563;">Estado:</label>
+            <select name="estado" style="padding: 8px; border: 1px solid #cbd5e0; border-radius: 6px; height: 38px; background: white;">
+                <option value="">-- Todos --</option>
+                <option value="pendiente" {{ request('estado') == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
+                <option value="confirmada" {{ request('estado') == 'confirmada' ? 'selected' : '' }}>Confirmada</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" style="background: #2ec4b6; color: white; border: none; padding: 0 15px; border-radius: 6px; font-weight: bold; height: 38px; cursor: pointer;">Filtrar</button>
+            @if(request('buscar') || request('estado'))
+                <a href="{{ url('/admin/compras_proveedor') }}" style="background: #e5e7eb; color: #374151; padding: 0 15px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; height: 38px; border: 1px solid #d1d5db;">Limpiar</a>
+            @endif
+        </div>
+    </form>
+</div>
     <hr style="margin: 40px 0; border: 0; border-top: 1px solid #e5e7eb;">
 
     {{-- HISTORIAL DE COMPRAS --}}

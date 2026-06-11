@@ -8,13 +8,31 @@ use Illuminate\Http\Request;
 class FacturaController extends Controller
 {
     /**
-     * Muestra el historial de todas las facturas emitidas.
+     * Muestra el historial de todas las facturas emitidas con soporte de filtros.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Traemos las facturas de la más reciente a la más antigua
-        $facturas = Factura::latest()->get();
+        // 1. Iniciamos el Query Builder sobre el modelo Factura
+        $query = Factura::query();
 
+        // 2. Filtro por texto libre: Busca por Nombre de Cliente O Número de Factura (ej: ANG-000001)
+        if ($request->filled('buscar')) {
+            $buscar = $request->buscar;
+            $query->where(function ($q) use ($buscar) {
+                $q->where('cliente_nombre', 'LIKE', '%' . $buscar . '%')
+                    ->orWhere('numero_factura', 'LIKE', '%' . $buscar . '%');
+            });
+        }
+
+        // 3. Filtro por Estado: Si se selecciona "pagada" o "emitida" en el menú desplegable
+        if ($request->filled('estado')) {
+            $query->where('estado', $request->estado);
+        }
+
+        // 4. Traemos las facturas filtradas de la más reciente a la más antigua
+        $facturas = $query->orderBy('created_at', 'desc')->get();
+
+        // CORRECCIÓN: Retorna la vista correcta donde pusimos los filtros ('admin.facturas')
         return view('admin.facturacion.index', compact('facturas'));
     }
 

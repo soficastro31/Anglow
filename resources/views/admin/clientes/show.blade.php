@@ -6,6 +6,13 @@
     <title>Perfil de {{ $cliente->name }} - Anglow</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos rápidos para la tabla de historial */
+        .tabla-historial { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; }
+        .tabla-historial th, .tabla-historial td { padding: 12px; border: 1px solid #e5e7eb; text-align: left; font-size: 14px; }
+        .tabla-historial th { background: #f8f9fa; color: #4b5563; font-weight: 600; }
+        .badge-pago { padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; display: inline-block; background: #d1e7dd; color: #0f5132; }
+    </style>
 </head>
 <body>
 
@@ -25,7 +32,7 @@
         <p style="color: #6b7280;">Detalles y cuenta del cliente</p>
     </div>
 
-    <div class="producto-card" style="padding: 40px;">
+    <div class="producto-card" style="padding: 40px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
         
         <div style="text-align: center; margin-bottom: 30px;">
             <div style="font-size: 80px; color: #4f8cff;">
@@ -37,7 +44,7 @@
             </span>
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 30px;">
             <tr style="border-bottom: 1px solid #f3f4f6;">
                 <td style="padding: 15px; font-weight: bold; color: #374151;">Correo Electrónico:</td>
                 <td style="padding: 15px; text-align: right;">{{ $cliente->email }}</td>
@@ -52,11 +59,11 @@
             </tr>
         </table>
 
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to={{ $cliente->email }}" 
-   target="_blank" 
-   style="display: inline-block; background: #ea4335; color: white; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-    <i class="fa-solid fa-envelope"></i> Enviar con Gmail
-</a>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to={{ $cliente->email }}" 
+               target="_blank" 
+               style="display: inline-block; background: #ea4335; color: white; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                <i class="fa-solid fa-envelope"></i> Enviar con Gmail
             </a>
             <a href="/admin/clientes" 
                style="text-decoration: none; background: #6b7280; color: white; padding: 12px 25px; border-radius: 6px; font-weight: bold;">
@@ -64,15 +71,3 @@
             </a>
         </div>
     </div>
-
-    <div style="margin-top: 30px;">
-        <h3>Historial de actividad</h3>
-        <div class="producto-card" style="padding: 20px; color: #6b7280; text-align: center;">
-            <p>No hay compras registradas recientemente.</p>
-        </div>
-    </div>
-
-</div>
-
-</body>
-</html>

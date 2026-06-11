@@ -10,12 +10,24 @@ class CompraProveedorController extends Controller
     /**
      * Muestra el listado de compras a proveedores.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Traemos todas las compras ordenadas por la más reciente
-        $compras = CompraProveedor::latest()->get();
+        $query = \App\Models\CompraProveedor::query(); // Ajusta al nombre de tu modelo
 
-        // Retornamos la vista
+        if ($request->filled('buscar')) {
+            $buscar = $request->buscar;
+            $query->where(function ($q) use ($buscar) {
+                $q->where('proveedor_nombre', 'LIKE', '%' . $buscar . '%')
+                    ->orWhere('numero_comprobante', 'LIKE', '%' . $buscar . '%');
+            });
+        }
+
+        if ($request->filled('estado')) {
+            $query->where('estado', $request->estado);
+        }
+
+        $compras = $query->latest()->get();
+
         return view('admin.compras_proveedor.index', compact('compras'));
     }
 

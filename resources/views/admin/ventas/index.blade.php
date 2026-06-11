@@ -31,7 +31,20 @@
 <div class="container">
     <h1>Historial de Ventas</h1>
     <p class="subtitle">Monitorea los pedidos y compras realizadas por los clientes en Anglow.</p>
-
+<div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb; margin-bottom: 20px;">
+    <form action="{{ url('/admin/ventas') }}" method="GET" style="display: flex; gap: 15px; align-items: flex-end;">
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+            <label style="font-weight: bold; font-size: 13px; color: #4b5563;">Buscar Venta:</label>
+            <input type="text" name="buscar" value="{{ request('buscar') }}" placeholder="ID de venta o nombre de cliente..." style="padding: 8px; border: 1px solid #cbd5e0; border-radius: 6px; height: 38px;">
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" style="background: #2ec4b6; color: white; border: none; padding: 0 15px; border-radius: 6px; font-weight: bold; height: 38px; cursor: pointer;">Buscar</button>
+            @if(request('buscar'))
+                <a href="{{ url('/admin/ventas') }}" style="background: #e5e7eb; color: #374151; padding: 0 15px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; height: 38px; border: 1px solid #d1d5db;">Limpiar</a>
+            @endif
+        </div>
+    </form>
+</div>
     <table>
         <thead>
             <tr>

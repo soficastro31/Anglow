@@ -93,12 +93,20 @@
             <a href="/admin/categorias"><button class="primary">Ver categorías</button></a>
         </div>
 
-        {{-- FACTURACIÓN (Corregido: Icono de factura y enlace correcto apuntando a su módulo) --}}
+        {{-- FACTURACIÓN (Corregido: URL apuntando a /admin/facturas) --}}
         <div class="producto-card" style="text-align: center; padding: 20px; border: 2px solid #4f8cff;">
             <div style="font-size: 35px; color: #4f8cff; margin-bottom: 10px;"><i class="fa-solid fa-file-invoice-dollar"></i></div>
             <h3>Facturación</h3>
             <p class="desc" style="font-size:12px; min-height:auto; margin-bottom:15px;">Mira y administra las facturas</p>
-            <a href="/admin/facturacion"><button class="primary">Ver facturas</button></a>
+            <a href="/admin/facturas"><button class="primary">Ver facturas</button></a>
+        </div>
+
+        {{-- PEDIDOS (NUEVA TARJETA AGREGRADA) --}}
+        <div class="producto-card" style="text-align: center; padding: 20px; border: 2px solid #4f8cff;">
+            <div style="font-size: 35px; color: #4f8cff; margin-bottom: 10px;"><i class="fa-solid fa-boxes-packing"></i></div>
+            <h3>Pedidos</h3>
+            <p class="desc" style="font-size:12px; min-height:auto; margin-bottom:15px;">Audita los flujos de entrega y estados de pago</p>
+            <a href="/admin/pedidos"><button class="primary">Ver pedidos</button></a>
         </div>
         
     </div>

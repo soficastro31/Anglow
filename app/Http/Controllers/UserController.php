@@ -8,16 +8,21 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     // Muestra la lista de usuarios
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = User::all();
-        return view('admin.usuarios.index', compact('usuarios'));
-    }
+        $query = \App\Models\User::query();
 
-    // Muestra el formulario de creación
-    public function create()
-    {
-        return view('admin.usuarios.create');
+        if ($request->filled('buscar')) {
+            $buscar = $request->buscar;
+            $query->where(function ($q) use ($buscar) {
+                $q->where('name', 'LIKE', '%' . $buscar . '%')
+                    ->orWhere('email', 'LIKE', '%' . $buscar . '%');
+            });
+        }
+
+        $usuarios = $query->orderBy('name', 'asc')->get();
+
+        return view('admin.usuarios.index', compact('usuarios'));
     }
 
     // Guarda un nuevo usuario

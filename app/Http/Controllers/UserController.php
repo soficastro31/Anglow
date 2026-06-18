@@ -25,6 +25,12 @@ class UserController extends Controller
         return view('admin.usuarios.index', compact('usuarios'));
     }
 
+    // ✅ METODO ADICIONADO: Muestra el formulario para crear un nuevo usuario
+    public function create()
+    {
+        return view('admin.usuarios.create');
+    }
+
     // Guarda un nuevo usuario
     public function store(Request $request)
     {
@@ -32,6 +38,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
+            'rol' => 'required'
         ]);
 
         User::create([
@@ -55,6 +62,13 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $usuario = User::findOrFail($id);
+
+        // Pasamos validación para evitar colisiones de emails repetidos al editar
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'rol' => 'required'
+        ]);
 
         $usuario->update([
             'name'  => $request->name,

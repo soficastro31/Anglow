@@ -11,23 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // 1. CREACIÓN CORRECTA DE LA TABLA USERS
         Schema::create('users', function (Blueprint $table) {
-             $table->string('rol')->default('cliente');
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // ✅ TU COLUMNA DE CONTROL DE ACCESO (Instalada directamente en el nacimiento de la tabla)
+            $table->string('rol')->default('empleado');
+
             $table->rememberToken();
             $table->timestamps();
         });
 
+        // 2. TABLA DE TOKENS PARA RECUPERAR CONTRASEÑAS
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
+        // 3. TABLA DE SESIONES DE USUARIOS
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();

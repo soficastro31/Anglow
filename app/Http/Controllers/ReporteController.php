@@ -2,38 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Venta;           // Tu modelo (que apunta a la tabla 'pedidos')
-use App\Models\Productos;       // Importado una sola vez en plural como lo tienes
-use App\Models\CompraProveedor; // Tu modelo de compras a proveedores
+use App\Models\{Venta, Productos, CompraProveedor, Factura}; // Volvemos a incluir Factura
 use Illuminate\Http\Request;
 
 class ReporteController extends Controller
 {
-    /**
-     * Genera el cuadro de mando de estadísticas para el Admin.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        // 1. BALANCE DE VENTAS: Cambiado a los estados típicos de tu tabla pedidos
-        $totalVentas = Venta::whereIn('estado', ['pagada', 'completada', 'pagado'])->sum('total');
-        $cantidadVentas = Venta::whereIn('estado', ['pagada', 'completada', 'pagado'])->count();
+        $tipo = $request->get('tipo');
 
-        // 2. COSTOS DE PROVEEDORES: Corregido con tu columna exacta 'costo_total'
-        $totalInversion = CompraProveedor::sum('costo_total') ?? 0;
+        // 1. Dashboard Estadístico
+        if (!$tipo) {
+            $estadosValidos = ['pagada', 'completada', 'pagado', 'aprobado'];
 
-        // 3. PRODUCTOS EN STOCK CRÍTICO: Usando tu modelo 'Productos'
-        $productosCriticos = Productos::where('stock', '<=', 5)->take(3)->get();
+            $totalVentas = Venta::whereIn('estado', $estadosValidos)->sum('total');
+            $cantidadVentas = Venta::whereIn('estado', $estadosValidos)->count();
+            $totalInversion = CompraProveedor::sum('costo_total') ?? 0;
+            $productosCriticos = Productos::where('stock', '<=', 5)->take(3)->get();
+            $totalProductos = Productos::count();
 
-        // 4. MÉTRICAS EXTRA: Total de productos en catálogo
-        $totalProductos = Productos::count();
+            return view('admin.reportes.index', compact('totalVentas', 'cantidadVentas', 'totalInversion', 'productosCriticos', 'totalProductos'));
+        }
 
-        // Enviamos todas las variables calculadas a la vista
-        return view('admin.reportes.index', compact(
-            'totalVentas',
-            'cantidadVentas',
-            'totalInversion',
-            'productosCriticos',
-            'totalProductos'
-        ));
+        // 2. Módulos de Impresión
+        $datos = [];
+        switch ($tipo) {
+            case 'ventas':
+                $datos = Venta::all();
+                break;
+            case 'inventario':
+                $datos = Productos::with('categoria')->get();
+                break;
+            case 'compras':
+                $datos = CompraProveedor::all();
+                break;
+            case 'facturacion':
+                // Traemos todas las facturas de la tabla 'facturas'
+                $datos = Factura::all();
+                break;
+        }
+
+        return view('admin.reportes.imprimir', compact('datos', 'tipo'));
     }
 }

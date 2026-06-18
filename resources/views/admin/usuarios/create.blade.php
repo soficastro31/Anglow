@@ -13,7 +13,7 @@
         <a href="/admin/usuarios"><strong>← Volver a Usuarios</strong></a>
     </div>
     <div>
-        <span>👤 {{ Auth::user()->name }}</span>
+        <span>👤 {{ Auth::user()->name }} ({{ ucfirst(Auth::user()->rol) }})</span>
     </div>
 </nav>
 
@@ -48,9 +48,9 @@
 
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 5px; font-weight: bold;">Rol</label>
-                <select name="rol" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                <select name="rol" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: white;">
                     <option value="cliente">Cliente</option>
-                    <option value="admin">Administrador</option>
+                    <option value="empleado">Empleado</option> <option value="admin">Administrador</option>
                 </select>
             </div>
 

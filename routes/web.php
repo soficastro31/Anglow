@@ -16,8 +16,12 @@ use App\Models\Venta;
 use App\Models\Pedido;
 
 /* ===================================================
-   AUTENTICACIÓN (AUTH)
+   AUTENTICACIÓN & PÚBLICAS (Accesibles sin iniciar sesión)
 =================================================== */
+
+Route::get('/', function () {
+   return view('inicio');
+});
 
 Route::get('/login', [AuthController::class, 'form'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -25,12 +29,11 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/register', [AuthController::class, 'formRegister']);
 Route::post('/register', [AuthController::class, 'register']);
 
-/* ===================================================
-   INICIO
-=================================================== */
-Route::get('/', function () {
-   return view('inicio');
+// ✅ SOLUCIÓN 404: Añadida la ruta pública para recuperar la contraseña
+Route::get('/recovery', function () {
+   return view('auth.recovery');
 });
+
 
 /* ===================================================
    RUTAS PROTEGIDAS PARA CLIENTES AUTENTICADOS (`auth`)
@@ -50,21 +53,18 @@ Route::middleware(['auth'])->group(function () {
    Route::get('/carrito/incrementar/{id}', [ProductosController::class, 'incrementarCarrito'])->name('carrito.incrementar');
    Route::get('/carrito/disminuir/{id}', [ProductosController::class, 'disminuirCarrito'])->name('carrito.disminuir');
 
-
    /* ================= CHECKOUT & SIMULADOR DE PAGO ================= */
    Route::get('/checkout', [ProductosController::class, 'checkout'])->name('checkout');
    Route::post('/checkout/procesar', [ProductosController::class, 'procesarCheckout']);
 
-   // Procesa la simulación de pago
-   Route::post('/checkout/simular-pago/{id}/{resultado}', [ProductosController::class, 'procesarPagoSimulado'])
-      ->name('checkout.simular-pago');
-
-   // CORRECCIÓN: Cambiado de POST a GET para que los botones de la pasarela funcionen sin romper
-   Route::get('/checkout/simular-pago/{id}/{resultado}', [ProductosController::class, 'procesarPagoSimulado'])->name('checkout.simular-pago');
+   // ✅ SOLUCIÓN AL ERROR DE SIMULACIÓN DE PAGO: Cambiado de Route::get a Route::post
+   Route::post('/checkout/simular-pago/{id}/{resultado}', [ProductosController::class, 'procesarPagoSimulado'])->name('checkout.simular-pago');
 });
 
+
 /* ===================================================
-   RUTAS DE ADMINISTRACIÓN (Protegidas por seguridad)
+   RUTAS DE ADMINISTRACIÓN & GESTIÓN
+   (Accesibles únicamente para los trabajadores: Admin y Empleado)
 =================================================== */
 Route::middleware(['auth'])->group(function () {
 
@@ -86,14 +86,6 @@ Route::middleware(['auth'])->group(function () {
    Route::put('/admin/categorias/update/{id}', [CategoriaController::class, 'update'])->name('admin.categorias.update');
    Route::delete('/admin/categorias/{id}', [CategoriaController::class, 'destroy'])->name('admin.categorias.destroy');
 
-   /* ================= USUARIOS (ADMIN CRUD) ================= */
-   Route::get('/admin/usuarios', [UserController::class, 'index'])->name('usuarios.index');
-   Route::get('/admin/usuarios/create', [UserController::class, 'create'])->name('usuarios.create');
-   Route::post('/admin/usuarios', [UserController::class, 'store'])->name('usuarios.store');
-   Route::get('/admin/usuarios/edit/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
-   Route::post('/admin/usuarios/update/{id}', [UserController::class, 'update'])->name('usuarios.update');
-   Route::delete('/admin/usuarios/{id}', [UserController::class, 'destroy'])->name('usuarios.destroy');
-
    /* ================= OTROS MÓDULOS ADMIN ================= */
    Route::get('/admin/clientes/{id}', [ClienteController::class, 'show'])->name('clientes.show');
    Route::get('/admin/clientes', [ClienteController::class, 'index'])->name('clientes.index');
@@ -107,10 +99,23 @@ Route::middleware(['auth'])->group(function () {
    Route::get('/admin/ventas', [VentaController::class, 'index'])->name('ventas.index');
    Route::get('/admin/reportes', [ReporteController::class, 'index'])->name('reportes.index');
 
-   /* ================= MÓDULO DE PEDIDOS (NUEVO) ================= */
+   /* ================= MÓDULO DE PEDIDOS ================= */
    Route::get('/admin/pedidos', [ProductosController::class, 'adminPedidos'])->name('admin.pedidos.index');
 
-   /* ================= MÓDULO DE FACTURACIÓN (SINCRONIZADO) ================= */
+   /* ================= MÓDULO DE FACTURACIÓN ================= */
    Route::get('/admin/facturas', [FacturaController::class, 'index'])->name('facturacion.index');
    Route::get('/admin/facturas/{id}', [FacturaController::class, 'show'])->name('facturacion.show');
+
+   /* ===================================================
+      🔒 MÓDULO EXCLUSIVO DE ADMINISTRADORES 
+      (Fabián NO puede entrar aquí, el middleware 'solo_admin' lo rebota)
+   =================================================== */
+   Route::middleware(['solo_admin'])->group(function () {
+      Route::get('/admin/usuarios', [UserController::class, 'index'])->name('usuarios.index');
+      Route::get('/admin/usuarios/create', [UserController::class, 'create'])->name('usuarios.create');
+      Route::post('/admin/usuarios', [UserController::class, 'store'])->name('usuarios.store');
+      Route::get('/admin/usuarios/edit/{id}', [UserController::class, 'edit'])->name('usuarios.edit');
+      Route::post('/admin/usuarios/update/{id}', [UserController::class, 'update'])->name('usuarios.update');
+      Route::delete('/admin/usuarios/{id}', [UserController::class, 'destroy'])->name('usuarios.destroy');
+   });
 });

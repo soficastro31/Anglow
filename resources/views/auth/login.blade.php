@@ -12,6 +12,12 @@
             </p>
         @endif
 
+        @if(session('success'))
+            <p style="color: green; text-align: center; margin-bottom: 15px;">
+                {{ session('success') }}
+            </p>
+        @endif
+
         <form method="POST" action="/login">
             @csrf
 
@@ -21,6 +27,12 @@
 
             <button type="submit">Entrar</button>
         </form>
+
+        <div style="margin-top: 15px; text-align: center;">
+            <a href="/recovery" style="color: #4f8cff; font-size: 0.9rem; text-decoration: none; font-weight: 500;">
+                ¿Olvidaste tu contraseña?
+            </a>
+        </div>
 
         <p style="text-align: center; margin-top: 20px;">
             ¿No tienes cuenta?

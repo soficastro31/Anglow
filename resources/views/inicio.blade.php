@@ -110,7 +110,7 @@
 
     <div style="max-width: 1000px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
         <iframe 
-           src="https://www.google.com/maps/embed?pb=!4v1781148637986!6m8!1m7!1snTx2UYlNch6MQT7qEW9tRA!2m2!1d4.545524017186625!2d-74.0802014350724!3f11.442961120632896!4f-30.240998430703065!5f0.7820865974627469"
+           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63622.40986146519!2d-74.13299243130345!3d4.700260835622931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f84fbb986f14f%3A0x3b64a485220100d5!2sCompensar%20-%20Sede%20Suba!5e0!3m2!1ses!2sco!4v1781213676244!5m2!1ses!2sco"
             width="100%" 
             height="450" 
             style="border:0; display: block;" 

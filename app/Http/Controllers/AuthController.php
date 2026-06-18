@@ -29,9 +29,13 @@ class AuthController extends Controller
 
             $user = Auth::user();
 
-            return $user->rol === 'admin'
-                ? redirect('/admin')
-                : redirect('/tienda');
+            // ✅ CORRECCIÓN: Si el rol es admin O empleado, entran al panel administrativo
+            if ($user->rol === 'admin' || $user->rol === 'empleado') {
+                return redirect('/admin');
+            }
+
+            // Si es cualquier otro rol (como cliente), va a la tienda abierta
+            return redirect('/tienda');
         }
 
         return back()->with('error', 'Credenciales incorrectas');
@@ -48,8 +52,8 @@ class AuthController extends Controller
     }
 
     /* =========================
-       REGISTER
-    ========================= */
+        REGISTER
+       ========================= */
 
     public function formRegister()
     {
@@ -68,7 +72,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'rol' => 'cliente'
+            'rol' => 'cliente' // Los usuarios que se registran solos por defecto son clientes
         ]);
 
         return redirect('/login')->with('success', 'Usuario creado correctamente');

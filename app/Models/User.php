@@ -2,46 +2,53 @@
 
 namespace App\Models;
 
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasMany; // Importamos la clase para la relación
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    /**
+     * El nombre de la tabla asociada al modelo.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * Los atributos que son asignables en masa.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'rol',
+        'rol', // En español para que coincida con tu AuthController y tu base de datos
     ];
 
+    /**
+     * Los atributos que deben ocultarse para la serialización.
+     *
+     * @var array<int, string>
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+    /**
+     * Los atributos que se deben convertir a tipos nativos.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password' => 'hashed', // Auto-encripta las contraseñas al guardarlas
         ];
-    }
-
-    /* ===================================================
-       RELACIONES DE MODELO (NUEVO)
-    =================================================== */
-
-    /**
-     * Obtiene todas las ventas (compras) asociadas a este usuario.
-     */
-    public function ventas(): HasMany
-    {
-        // Conecta el ID de este usuario con la columna 'user_id' en tu tabla 'ventas'
-        return $this->hasMany(Venta::class, 'user_id');
     }
 }

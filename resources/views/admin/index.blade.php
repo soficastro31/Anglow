@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel del Administrador - Anglow</title>
+    <title>Panel de Control - Anglow</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -11,11 +11,11 @@
 
 <nav>
     <div>
-        <a href="/tienda"><strong>Anglow Admin</strong></a>
+      <a href="/tienda"><strong>Anglow {{ Auth::user()->rol === 'admin' ? 'Admin' : 'Empleado' }}</strong></a>
     </div>
     <div>
         <span style="margin-right:15px;">
-            👤 {{ Auth::user()->name }} (Admin)
+            👤 {{ Auth::user()->name }} ({{ ucfirst(Auth::user()->rol) }})
         </span>
         <a href="/logout">Cerrar sesión</a>
     </div>
@@ -23,19 +23,21 @@
 
 <div class="container">
     <div style="margin-bottom: 30px; margin-top: 20px;">
-        <h1>Panel del Administrador</h1>
+        <h1>Panel del {{ Auth::user()->rol === 'admin' ? 'Administrador' : 'Empleado' }}</h1>
         <p style="color: #6b7280;">Hola, {{ Auth::user()->name }}. Gestiona el sistema desde el menú.</p>
     </div>
 
     <div class="grid-productos">
 
         {{-- USUARIOS --}}
-        <div class="producto-card" style="text-align: center; padding: 20px; border: 2px solid #4f8cff;">
-            <div style="font-size: 35px; color: #4f8cff; margin-bottom: 10px;"><i class="fa-solid fa-user-gear"></i></div>
-            <h3>Usuarios</h3>
-            <p class="desc" style="font-size:12px; min-height:auto; margin-bottom:15px;">Gestiona usuarios del sistema</p>
-            <a href="/admin/usuarios"><button class="primary">Ver usuarios</button></a>
-        </div>
+        @if(Auth::user()->rol === 'admin')
+            <div class="producto-card" style="text-align: center; padding: 20px; border: 2px solid #4f8cff;">
+                <div style="font-size: 35px; color: #4f8cff; margin-bottom: 10px;"><i class="fa-solid fa-user-gear"></i></div>
+                <h3>Usuarios</h3>
+                <p class="desc" style="font-size:12px; min-height:auto; margin-bottom:15px;">Gestiona usuarios del sistema</p>
+                <a href="/admin/usuarios"><button class="primary">Ver usuarios</button></a>
+            </div>
+        @endif
 
         {{-- CLIENTES --}}
         <div class="producto-card" style="text-align: center; padding: 20px; border: 2px solid #4f8cff;">
@@ -93,7 +95,7 @@
             <a href="/admin/categorias"><button class="primary">Ver categorías</button></a>
         </div>
 
-        {{-- FACTURACIÓN (Corregido: URL apuntando a /admin/facturas) --}}
+        {{-- FACTURACIÓN --}}
         <div class="producto-card" style="text-align: center; padding: 20px; border: 2px solid #4f8cff;">
             <div style="font-size: 35px; color: #4f8cff; margin-bottom: 10px;"><i class="fa-solid fa-file-invoice-dollar"></i></div>
             <h3>Facturación</h3>
@@ -101,7 +103,7 @@
             <a href="/admin/facturas"><button class="primary">Ver facturas</button></a>
         </div>
 
-        {{-- PEDIDOS (NUEVA TARJETA AGREGRADA) --}}
+        {{-- PEDIDOS --}}
         <div class="producto-card" style="text-align: center; padding: 20px; border: 2px solid #4f8cff;">
             <div style="font-size: 35px; color: #4f8cff; margin-bottom: 10px;"><i class="fa-solid fa-boxes-packing"></i></div>
             <h3>Pedidos</h3>

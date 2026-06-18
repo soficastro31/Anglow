@@ -44,6 +44,7 @@
                 <label style="display: block; margin-bottom: 5px; font-weight: bold;">Rol</label>
                 <select name="rol" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                     <option value="admin" {{ $usuario->rol == 'admin' ? 'selected' : '' }}>Administrador</option>
+                    <option value="empleado" {{ $usuario->rol == 'empleado' ? 'selected' : '' }}>Empleado</option>
                     <option value="cliente" {{ $usuario->rol == 'cliente' ? 'selected' : '' }}>Cliente</option>
                 </select>
             </div>
